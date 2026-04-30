@@ -519,7 +519,7 @@ print(f"Answer: {response['result']}")`,
 
       {/* Hero Section - The Elite Entrance */}
       <section className="hero-section" style={heroSectionStyle}>
-        <div className="fade-up hero-container" style={heroContainerStyle}>
+        <div className="fade-up hero-grid" style={heroContainerStyle}>
           <div style={heroContentStyle}>
 
             <h1 style={heroTitleStyle}>
@@ -530,15 +530,7 @@ print(f"Answer: {response['result']}")`,
               )}
             </h1>
             <p style={heroSubtitleStyle}>{t.heroSubtitle}</p>
-            <div className="cta-group" style={ctaGroupStyle}>
-              <a
-                href="/documents/CV Bonifasius.pdf"
-                download
-                style={{ ...outlineBtnStyle, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
-              >
-                {t.resumeBtn}
-              </a>
-            </div>
+
           </div>
 
           <div style={heroGraphicStyle}>
@@ -618,25 +610,12 @@ print(f"Answer: {response['result']}")`,
       {/* About Section */}
       <section id="about" style={aboutSectionStyle}>
         <div className="about-container" style={aboutContainerStyle}>
-          <div style={aboutContentStyle}>
+          <div className="about-content" style={aboutContentStyle}>
             <h2 style={smallTitleStyle}>{t.aboutTitle}</h2>
             <h3 style={sectionTitleStyle}>{t.aboutSubtitle}</h3>
             <p style={aboutTextStyle}>{t.aboutText1}</p>
             <p style={aboutTextStyle}>{t.aboutText2}</p>
-            <div className="stats-grid" style={statsGridStyle}>
-              <div style={statItemStyle}>
-                <span style={statNumberStyle}>3+</span>
-                <span style={statLabelStyle}>{t.expYears}</span>
-              </div>
-              <div style={statItemStyle}>
-                <span style={statNumberStyle}>15+</span>
-                <span style={statLabelStyle}>{t.projBuilt}</span>
-              </div>
-              <div style={statItemStyle}>
-                <span style={statNumberStyle}>100%</span>
-                <span style={statLabelStyle}>{t.precision}</span>
-              </div>
-            </div>
+
           </div>
           <div className="about-skills-grid" style={aboutSkillsGridStyle}>
             <div className="fade-up" style={{
@@ -755,17 +734,17 @@ print(f"Answer: {response['result']}")`,
           <p style={sectionSubtitleStyle}>{t.valuesSubtitle}</p>
         </div>
         <div className="values-grid" style={valuesGridStyle}>
-          <div className="glass-card" style={valueCardStyle}>
+          <div className="glass-card value-card-v2" style={valueCardStyle}>
             <div style={valueIconStyle}>🎯</div>
             <h4 style={cardTitleStyle}>{t.val1Title}</h4>
             <p style={cardTextStyle}>{t.val1Text}</p>
           </div>
-          <div className="glass-card" style={valueCardStyle}>
+          <div className="glass-card value-card-v2" style={valueCardStyle}>
             <div style={valueIconStyle}>🔍</div>
             <h4 style={cardTitleStyle}>{t.val2Title}</h4>
             <p style={cardTextStyle}>{t.val2Text}</p>
           </div>
-          <div className="glass-card" style={valueCardStyle}>
+          <div className="glass-card value-card-v2" style={valueCardStyle}>
             <div style={valueIconStyle}>🚀</div>
             <h4 style={cardTitleStyle}>{t.val3Title}</h4>
             <p style={cardTextStyle}>{t.val3Text}</p>
@@ -868,7 +847,7 @@ print(f"Answer: {response['result']}")`,
               <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }} />
               <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f' }} />
             </div>
-            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <div className="terminal-tabs-container" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
               {(['Python', 'Go', 'TS', 'Next', 'Docker', 'FastAPI', 'LangChain'] as const).map(tab => (
                 <button
                   key={tab}
@@ -925,7 +904,7 @@ print(f"Answer: {response['result']}")`,
           </div>
 
           {/* Syntax Highlighter */}
-          <div style={codeAreaStyle}>
+          <div className="code-area" style={codeAreaStyle}>
             <SyntaxHighlighter
               language={
                 activeCodeTab === 'Python' || activeCodeTab === 'FastAPI' || activeCodeTab === 'LangChain' ? 'python' :
@@ -1267,6 +1246,7 @@ const heroSubtitleStyle: React.CSSProperties = {
 const heroGraphicStyle: React.CSSProperties = {
   position: 'relative',
   height: '500px',
+  width: '100%',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
