@@ -518,8 +518,8 @@ print(f"Answer: {response['result']}")`,
 
 
       {/* Hero Section - The Elite Entrance */}
-      <section style={heroSectionStyle}>
-        <div className="fade-up" style={heroContainerStyle}>
+      <section className="hero-section" style={heroSectionStyle}>
+        <div className="fade-up hero-container" style={heroContainerStyle}>
           <div style={heroContentStyle}>
 
             <h1 style={heroTitleStyle}>
@@ -530,7 +530,7 @@ print(f"Answer: {response['result']}")`,
               )}
             </h1>
             <p style={heroSubtitleStyle}>{t.heroSubtitle}</p>
-            <div style={ctaGroupStyle}>
+            <div className="cta-group" style={ctaGroupStyle}>
               <a
                 href="/documents/CV Bonifasius.pdf"
                 download
@@ -617,13 +617,13 @@ print(f"Answer: {response['result']}")`,
 
       {/* About Section */}
       <section id="about" style={aboutSectionStyle}>
-        <div style={aboutContainerStyle}>
+        <div className="about-container" style={aboutContainerStyle}>
           <div style={aboutContentStyle}>
             <h2 style={smallTitleStyle}>{t.aboutTitle}</h2>
             <h3 style={sectionTitleStyle}>{t.aboutSubtitle}</h3>
             <p style={aboutTextStyle}>{t.aboutText1}</p>
             <p style={aboutTextStyle}>{t.aboutText2}</p>
-            <div style={statsGridStyle}>
+            <div className="stats-grid" style={statsGridStyle}>
               <div style={statItemStyle}>
                 <span style={statNumberStyle}>3+</span>
                 <span style={statLabelStyle}>{t.expYears}</span>
@@ -638,7 +638,7 @@ print(f"Answer: {response['result']}")`,
               </div>
             </div>
           </div>
-          <div style={aboutSkillsGridStyle}>
+          <div className="about-skills-grid" style={aboutSkillsGridStyle}>
             <div className="fade-up" style={{
               width: '100%',
               height: '520px',
@@ -754,7 +754,7 @@ print(f"Answer: {response['result']}")`,
           <h2 style={sectionTitleStyle}>{t.valuesTitle}</h2>
           <p style={sectionSubtitleStyle}>{t.valuesSubtitle}</p>
         </div>
-        <div style={valuesGridStyle}>
+        <div className="values-grid" style={valuesGridStyle}>
           <div className="glass-card" style={valueCardStyle}>
             <div style={valueIconStyle}>🎯</div>
             <h4 style={cardTitleStyle}>{t.val1Title}</h4>
@@ -991,13 +991,13 @@ print(f"Answer: {response['result']}")`,
 
 
       {/* Contact Section */}
-      <section id="contact" style={sectionStyle}>
+      <section id="contact" style={sectionStyle} className="contact-section section-header">
         <div style={sectionHeaderStyle}>
           <h2 style={sectionTitleStyle}>{t.contactTitle}</h2>
           <p style={sectionSubtitleStyle}>{t.contactSubtitle}</p>
         </div>
 
-        <div style={contactGridStyle}>
+        <div className="contact-grid" style={contactGridStyle}>
           {/* Email Card */}
           <div className="glass-card contact-card-v2" style={{ ...contactCardStyleV2, '--brand-color': '#ea4335' } as any}>
             <div className="contact-icon-wrapper" style={{ background: 'rgba(234, 67, 53, 0.1)', color: '#ea4335' }}>
@@ -1084,12 +1084,10 @@ print(f"Answer: {response['result']}")`,
         </div>
       </section>
 
-      <footer style={footerStyle}>
+      <footer style={footerStyle} className="footer-section">
         <div className="mesh-blob blob-2" style={{ opacity: 0.1, right: '-10%', bottom: '-10%', width: '800px', height: '800px' }} />
 
-
-
-        <div style={footerContainerStyle}>
+        <div className="footer-container" style={footerContainerStyle}>
           {/* Brand Column */}
           <div style={footerColumnStyle}>
             <div style={{ marginBottom: '1rem' }}>

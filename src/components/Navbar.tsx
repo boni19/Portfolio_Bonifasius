@@ -136,8 +136,11 @@ export default function Navbar({ lang, toggleLang, showLangDrop, setShowLangDrop
           {/* Hamburger Button */}
           <button 
             onClick={() => setIsOpen(!isOpen)} 
-            style={hamburgerButtonStyle}
             className="hamburger-btn"
+            style={{
+              ...hamburgerButtonStyle,
+              display: 'none', // Overridden by media query in globals.css
+            }}
             aria-label="Toggle menu"
           >
             <div style={{...barStyle, transform: isOpen ? 'rotate(45deg) translate(5px, 6px)' : 'none'}} />
@@ -146,10 +149,7 @@ export default function Navbar({ lang, toggleLang, showLangDrop, setShowLangDrop
           </button>
 
           {/* Desktop & Mobile Links */}
-          <ul style={{
-            ...navLinksStyle, 
-            ...(isOpen ? mobileLinksActiveStyle : {})
-          }} className="nav-links">
+          <ul className={`nav-links ${isOpen ? 'nav-active' : ''}`} style={navLinksStyle}>
             <li><Link href="#" style={linkStyle} onClick={(e) => handleNavClick(e, '#')}>{t.navHome}</Link></li>
             <li><Link href="#about" style={linkStyle} onClick={(e) => handleNavClick(e, '#about')}>{t.navAbout}</Link></li>
             <li><Link href="#expertise" style={linkStyle} onClick={(e) => handleNavClick(e, '#expertise')}>{t.navExpertise}</Link></li>
