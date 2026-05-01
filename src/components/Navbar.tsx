@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
+
 interface NavbarProps {
   lang: 'EN' | 'ID';
   toggleLang: (newLang: 'EN' | 'ID') => void;
@@ -91,7 +92,7 @@ export default function Navbar({ lang, toggleLang, showLangDrop, setShowLangDrop
         <div style={navContainerStyle}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
             <Link href="/" style={logoStyle} onClick={() => setIsOpen(false)}>
-              <span className="text-gradient">BONI</span>.AI
+              <span className="text-gradient">BIL</span>.
             </Link>
 
             {/* Language Switcher in Header */}
@@ -153,6 +154,7 @@ export default function Navbar({ lang, toggleLang, showLangDrop, setShowLangDrop
             <li><Link href="#" style={linkStyle} onClick={(e) => handleNavClick(e, '#')}>{t.navHome}</Link></li>
             <li><Link href="#about" style={linkStyle} onClick={(e) => handleNavClick(e, '#about')}>{t.navAbout}</Link></li>
             <li><Link href="#expertise" style={linkStyle} onClick={(e) => handleNavClick(e, '#expertise')}>{t.navExpertise}</Link></li>
+            <li><Link href="#projects" style={linkStyle} onClick={(e) => handleNavClick(e, '#projects')}>{t.navProjects}</Link></li>
 
             <li><Link href="#contact" className="glow-btn" onClick={(e) => handleNavClick(e, '#contact')}>{t.navContact}</Link></li>
           </ul>

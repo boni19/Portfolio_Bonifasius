@@ -52,6 +52,7 @@ export default function ParticleNetwork() {
     window.addEventListener('mouseleave', handleMouseLeave);
     window.addEventListener('resize', handleResize);
 
+    let animationId: number;
     const animate = () => {
       ctx.clearRect(0, 0, w, h);
       ctx.fillStyle = 'rgba(2, 6, 23, 1)'; // dark background
@@ -106,7 +107,7 @@ export default function ParticleNetwork() {
           }
         }
       }
-      requestAnimationFrame(animate);
+      animationId = requestAnimationFrame(animate);
     };
     
     animate();
@@ -115,6 +116,7 @@ export default function ParticleNetwork() {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);
       window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(animationId);
     };
   }, []);
 

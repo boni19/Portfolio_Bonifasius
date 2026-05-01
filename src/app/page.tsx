@@ -5,6 +5,8 @@ import SpotlightCard from "@/components/SpotlightCard";
 import AIChatBox from "@/components/AIChatBox";
 import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
+import ProjectModal from "@/components/ProjectModal";
+
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import ParticleNetwork from "@/components/ParticleNetwork";
@@ -12,8 +14,8 @@ import ParticleNetwork from "@/components/ParticleNetwork";
 const translations = {
   EN: {
     heroLabel: "AI ENGINEER • DATA ANALYST • ADMINISTRASI",
-    heroTitle: "Empowering Business Growth with Intelligent Systems.",
-    heroSubtitle: "I'm Bonifasius. An AI & Information Systems specialist blending cutting-edge artificial intelligence with robust system architecture. Whether it's workflow optimization or advanced AI integration, I build solutions that don't just work—they deliver measurable impact on efficiency and growth.",
+    heroTitle: "Boni Intelligence Lab: Empowering Business Growth with Intelligent Systems.",
+    heroSubtitle: "I'm Bonifasius. An AI & Information Systems specialist at BIL Lab, blending cutting-edge artificial intelligence with robust system architecture. Whether it's workflow optimization or advanced AI integration, I build solutions that deliver measurable impact.",
     exploreBtn: "Explore My Work",
     resumeBtn: "Download Resume",
     navHome: "Home",
@@ -76,8 +78,8 @@ const translations = {
   },
   ID: {
     heroLabel: "AI ENGINEER • DATA ANALYST • ADMINISTRASI",
-    heroTitle: "Solusi Digital Cerdas untuk Akselerasi Bisnis.",
-    heroSubtitle: "Saya Bonifasius. Seorang spesialis AI & Sistem Informasi yang menggabungkan kecanggihan kecerdasan buatan dengan struktur sistem yang kokoh. Dari optimasi alur kerja hingga integrasi AI tingkat lanjut, saya membangun solusi yang tidak hanya berfungsi, tetapi juga memberikan dampak nyata pada efisiensi dan pertumbuhan bisnis Anda.",
+    heroTitle: "Boni Intelligence Lab: Mendorong Pertumbuhan Bisnis dengan Sistem Cerdas.",
+    heroSubtitle: "Saya Bonifasius. Spesialis AI & Sistem Informasi di BIL Lab, memadukan kecerdasan buatan mutakhir dengan arsitektur sistem yang kokoh untuk solusi yang memberikan dampak nyata.",
     exploreBtn: "Lihat Karya Saya",
     resumeBtn: "Unduh Resume",
     navHome: "Beranda",
@@ -160,6 +162,15 @@ export default function Home() {
   const [activeCodeTab, setActiveCodeTab] = useState<'Python' | 'Go' | 'TS' | 'Next' | 'Docker' | 'FastAPI' | 'LangChain'>('Python');
   const [isRunning, setIsRunning] = useState(false);
   const [showOutput, setShowOutput] = useState(false);
+  
+  // Modal State
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<any>(null);
+
+  const openProject = (project: any) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
 
   const handleRunCode = () => {
     setIsRunning(true);
@@ -174,6 +185,86 @@ export default function Home() {
     setShowOutput(false);
     setIsRunning(false);
   }, [activeCodeTab]);
+
+  const projects = [
+    {
+      id: 1,
+      title: lang === 'EN' ? "Expert System - Bayes Theorem" : "Sistem Pakar - Teorema Bayes",
+      desc: lang === 'EN' ? "A high-precision diagnostic engine using advanced probabilistic modeling to solve complex decision-making tasks." : "Mesin diagnosa berpresisi tinggi menggunakan pemodelan probabilistik tingkat lanjut untuk tugas pengambilan keputusan kompleks.",
+      image: "/images/p1.png",
+      tags: ["Laravel", "MySQL", "Teorema Bayes"],
+      details: {
+        problem: lang === 'EN' 
+          ? "Difficulty in diagnosing specific conditions manually due to complex symptom overlaps and human error in probabilistic calculations." 
+          : "Kesulitan dalam mendiagnosa kondisi spesifik secara manual karena tumpang tindih gejala yang kompleks dan kesalahan manusia dalam perhitungan probabilistik.",
+        solution: lang === 'EN'
+          ? "An automated Bayes' Theorem engine that processes symptoms against a knowledge base to provide high-confidence diagnostic rankings."
+          : "Mesin Teorema Bayes otomatis yang memproses gejala terhadap basis pengetahuan untuk memberikan peringkat diagnosa dengan tingkat kepercayaan tinggi.",
+        logic: lang === 'EN' ? [
+          "Input symptoms from the user interface.",
+          "Identify all diseases associated with the selected symptoms.",
+          "Retrieve prior probabilities (P(H)) from the knowledge base.",
+          "Calculate conditional probabilities (P(E|H)) for each disease.",
+          "Compute the evidence factor (P(E)) for normalization.",
+          "Apply Bayes' Formula to find posterior probability (P(H|E)).",
+          "Rank diseases from highest to lowest probability.",
+          "Generate a transparent diagnostic report with calculation steps."
+        ] : [
+          "Input gejala melalui antarmuka pengguna.",
+          "Identifikasi semua penyakit yang terkait dengan gejala yang dipilih.",
+          "Ambil probabilitas awal (P(H)) dari basis pengetahuan.",
+          "Hitung probabilitas kondisional (P(E|H)) untuk setiap penyakit.",
+          "Hitung faktor evidence (P(E)) untuk normalisasi.",
+          "Terapkan Formula Bayes untuk mencari probabilitas posterior (P(H|E)).",
+          "Urutkan penyakit dari probabilitas tertinggi hingga terendah.",
+          "Hasilkan laporan diagnosa transparan dengan langkah perhitungan."
+        ],
+        tech: [
+          "Laravel 11 (PHP Framework)", 
+          "MySQL Database",
+          "PHP 8.2 & XAMPP", 
+          "Teorema Bayes (Algoritma)", 
+          "Blade Engine & Vanilla CSS", 
+          "SweetAlert2 & FontAwesome"
+        ]
+      }
+    },
+    {
+      id: 2,
+      title: lang === 'EN' ? "AI Professional Portfolio" : "Portfolio Profesional Berbasis AI",
+      desc: lang === 'EN' ? "A high-end, interactive portfolio featuring a bespoke brand identity and an integrated AI assistant." : "Portfolio interaktif kelas atas dengan identitas brand kustom dan asisten AI yang terintegrasi.",
+      image: "/images/portfolio.png",
+      tags: ["Next.js 15", "TypeScript", "AI Integration"],
+      details: {
+        problem: lang === 'EN'
+          ? "Standard portfolios lack interactivity and fail to demonstrate real-time AI implementation and modern brand aesthetics."
+          : "Portfolio standar kurang interaktif dan gagal mendemonstrasikan implementasi AI real-time serta estetika brand modern.",
+        solution: lang === 'EN'
+          ? "Building a custom-designed laboratory-style portfolio with a 'Neural' brand identity and a live Gemini AI-powered chat assistant."
+          : "Membangun portfolio gaya laboratorium dengan identitas brand 'Neural' dan asisten chat live berbasis Gemini AI.",
+        logic: lang === 'EN' ? [
+          "Implement responsive Grid layout for project cases.",
+          "Develop custom animated SVG brand identity (BIL Lab).",
+          "Integrate Gemini AI API for the Boni Assistant.",
+          "Optimize performance with Next.js App Router.",
+          "Implement high-end CSS-only animations for visual impact."
+        ] : [
+          "Implementasi layout Grid responsif untuk studi kasus.",
+          "Pengembangan identitas brand SVG animasi kustom (BIL Lab).",
+          "Integrasi Gemini AI API untuk Boni Assistant.",
+          "Optimasi performa dengan Next.js App Router.",
+          "Implementasi animasi CSS-only kelas atas untuk dampak visual."
+        ],
+        tech: [
+          "Next.js 15 (App Router)", 
+          "TypeScript & React 19", 
+          "Vanilla CSS Design System", 
+          "Gemini AI API Implementation",
+          "Custom SVG Animation Logic"
+        ]
+      }
+    }
+  ];
 
   const codeSnippets = {
     TS: {
@@ -543,6 +634,7 @@ print(f"Answer: {response['result']}")`,
                     src="/images/boni.jpg"
                     alt="Boni Portrait"
                     fill
+                    priority={true}
                     sizes="(max-width: 768px) 100vw, 50vw"
                     style={{ objectFit: 'cover', filter: 'contrast(1.1) brightness(0.9) saturate(0.8)' }}
                   />
@@ -832,6 +924,73 @@ print(f"Answer: {response['result']}")`,
         </div>
       </section>
 
+      {/* Projects Section */}
+      <section id="projects" style={sectionStyle}>
+        <div style={sectionHeaderStyle}>
+          <h2 style={smallTitleStyle}>{t.navProjects.toUpperCase()}</h2>
+          <h3 style={sectionTitleStyle}>{t.projectsTitle}</h3>
+        </div>
+
+        <div className="project-grid-v2">
+          {projects.map((project) => (
+            <SpotlightCard key={project.id} className="project-card-v2" style={projectCardStyle}>
+              <div style={projectImageWrapper}>
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover', 
+                    transition: 'transform 0.5s ease',
+                    display: 'block'
+                  }}
+                  className="project-img"
+                  onError={(e) => {
+                    console.error("Image load failed:", project.image);
+                    e.currentTarget.src = "https://via.placeholder.com/600x400?text=Image+Not+Found";
+                  }}
+                />
+                <div className="project-overlay">
+                </div>
+              </div>
+              <div style={{ padding: '2rem' }}>
+                <div style={tagGroupStyle}>
+                  {project.tags.map(tag => (
+                    <span key={tag} style={tagStyle}>{tag}</span>
+                  ))}
+                </div>
+                <h4 style={{ ...cardTitleStyle, marginTop: '1rem', fontSize: '1.4rem' }}>{project.title}</h4>
+                <p style={cardTextStyle}>{project.desc}</p>
+                
+                <button 
+                  onClick={() => openProject(project)}
+                  className="project-link-btn" 
+                  style={{
+                    marginTop: '2rem',
+                    background: 'transparent',
+                    border: '1px solid var(--primary)',
+                    color: 'var(--primary)',
+                    padding: '10px 20px',
+                    borderRadius: '10px',
+                    fontSize: '0.85rem',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  {lang === 'EN' ? 'VIEW_CASE_STUDY' : 'LIHAT_STUDI_KASUS'}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </button>
+              </div>
+            </SpotlightCard>
+          ))}
+        </div>
+      </section>
+
       {/* Code Laboratory Section */}
       <section id="code-lab" style={sectionStyle}>
         <div style={sectionHeaderStyle}>
@@ -1069,9 +1228,9 @@ print(f"Answer: {response['result']}")`,
         <div className="footer-container" style={footerContainerStyle}>
           {/* Brand Column */}
           <div style={footerColumnStyle}>
-            <div style={{ marginBottom: '1rem' }}>
-              <span className="text-gradient" style={{ fontSize: '2.2rem', fontWeight: '900', letterSpacing: '1px' }}>BONI</span>
-              <span style={{ fontSize: '2.2rem', fontWeight: '300', opacity: 0.8 }}>.AI</span>
+            <div style={{ marginBottom: '1.5rem' }}>
+              <span className="text-gradient" style={{ fontSize: '2.5rem', fontWeight: '900', letterSpacing: '2px' }}>BIL</span>
+              <span style={{ fontSize: '2.5rem', fontWeight: '300', opacity: 0.8 }}>.</span>
             </div>
             <p style={{ color: 'rgba(255,255,255,0.4)', lineHeight: '1.8', fontSize: '0.95rem', maxWidth: '300px' }}>
               {lang === 'EN'
@@ -1167,7 +1326,7 @@ print(f"Answer: {response['result']}")`,
 
         <div style={footerBottomStyle}>
           <div style={{ display: 'flex', gap: '3rem', alignItems: 'center' }}>
-            <p>© 2026 Bonifasius.</p>
+            <p>© 2026 Boni Intelligence Lab (BIL).</p>
             <p style={{ opacity: 0.4, fontSize: '0.75rem', letterSpacing: '1px' }}>{t.footerText.toUpperCase()}</p>
           </div>
           <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
@@ -1182,6 +1341,12 @@ print(f"Answer: {response['result']}")`,
           </div>
         </div>
       </footer>
+      <ProjectModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        project={selectedProject} 
+        lang={lang}
+      />
       <AIChatBox lang={lang} />
     </main>
   );
@@ -1410,11 +1575,7 @@ const cardTextStyle: React.CSSProperties = {
   fontWeight: '400',
 };
 
-const projectGridStyle: React.CSSProperties = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))',
-  gap: '3rem',
-};
+
 
 const projectCardStyle: React.CSSProperties = {
   padding: '0',
@@ -1448,9 +1609,9 @@ const cardTextStyleV2: React.CSSProperties = {
 
 const projectImageWrapper: React.CSSProperties = {
   width: '100%',
-  height: '320px',
+  height: '250px',
   position: 'relative',
-  borderBottom: '1px solid var(--card-border)',
+  borderBottom: '1px solid var(--glass-border)',
 };
 
 

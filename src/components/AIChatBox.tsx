@@ -263,47 +263,6 @@ export default function AIChatBox({ lang }: { lang: 'EN' | 'ID' }) {
         </div>
       </button>
 
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .enterprise-chat-window {
-          backdrop-filter: blur(20px);
-          background: rgba(15, 17, 26, 0.85);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 24px;
-          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-        .chat-toggle-premium {
-          background: linear-gradient(135deg, #6366f1, #a855f7);
-          color: white;
-          border: none;
-          cursor: pointer;
-          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
-        }
-        .chat-toggle-premium:hover {
-          transform: scale(1.05) translateY(-5px);
-          box-shadow: 0 15px 30px rgba(99, 102, 241, 0.6);
-        }
-        .status-indicator {
-          position: absolute;
-          bottom: 0;
-          right: 0;
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-          border: 2px solid #0f111a;
-        }
-        .online { background: #22c55e; }
-        .listening { background: #ef4444; animation: pulse 1s infinite; }
-        @keyframes pulse {
-          0% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.2); opacity: 0.5; }
-          100% { transform: scale(1); opacity: 1; }
-        }
-      `}</style>
     </div>
   );
 }
