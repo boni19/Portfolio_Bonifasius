@@ -241,9 +241,22 @@ export default function AIChatBox({ lang }: { lang: 'EN' | 'ID' }) {
 
           <div style={inputAreaStyle}>
             <div style={inputWrapperStyle}>
-              <div style={{ display: 'flex', gap: '12px', color: '#54656F', marginRight: '12px' }}>
-                <span style={{ fontSize: '1.2rem', cursor: 'pointer' }}>➕</span>
-                <span style={{ fontSize: '1.2rem', cursor: 'pointer' }}>😊</span>
+              <div style={{ marginRight: '12px', display: 'flex', alignItems: 'center' }}>
+                <button 
+                  onClick={startListening} 
+                  style={{ 
+                    ...sendBtnStyle, 
+                    width: 'auto', 
+                    height: 'auto', 
+                    color: isListening ? '#EF4444' : '#54656F',
+                    padding: '4px'
+                  }}
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"></path>
+                    <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"></path>
+                  </svg>
+                </button>
               </div>
               <input 
                 type="text" 
@@ -254,17 +267,10 @@ export default function AIChatBox({ lang }: { lang: 'EN' | 'ID' }) {
                 style={{ ...inputFieldStyle, color: '#111B21' }}
               />
               <div style={{ marginLeft: '12px', display: 'flex', alignItems: 'center' }}>
-                {input.trim() ? (
+                {input.trim() && (
                   <button onClick={handleSend} style={{ ...sendBtnStyle, color: '#00A884' }}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path>
-                    </svg>
-                  </button>
-                ) : (
-                  <button onClick={startListening} style={{ ...sendBtnStyle, color: isListening ? '#EF4444' : '#54656F' }}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"></path>
-                      <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"></path>
                     </svg>
                   </button>
                 )}
