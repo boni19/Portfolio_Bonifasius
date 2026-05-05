@@ -1208,18 +1208,74 @@ h1, h2, h3 {
 }
 
 /* AI Chat Box Styles */
+.chat-container-main {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
 @keyframes fadeInUpChat {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .enterprise-chat-window {
-  backdrop-filter: blur(20px);
-  background: rgba(15, 17, 26, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  animation: fadeInUpChat 0.4s ease-out;
+  width: 380px;
+  height: 520px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #E5DDD5; /* WA Light Mode Bg Base */
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1.5rem;
+  animation: fadeInUpChat 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: bottom right;
+}
+
+.wa-light-bg {
+  background-color: #E5DDD5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 800 800'%3E%3Cg fill='%23000000' fill-opacity='0.03'%3E%3Cpath d='M72.5 137.5c-4.14 0-7.5-3.36-7.5-7.5s3.36-7.5 7.5-7.5 7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5zm125 0c-4.14 0-7.5-3.36-7.5-7.5s3.36-7.5 7.5-7.5 7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5zm125 0c-4.14 0-7.5-3.36-7.5-7.5s3.36-7.5 7.5-7.5 7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5zm125 0c-4.14 0-7.5-3.36-7.5-7.5s3.36-7.5 7.5-7.5 7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5zm125 0c-4.14 0-7.5-3.36-7.5-7.5s3.36-7.5 7.5-7.5 7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5zm125 0c-4.14 0-7.5-3.36-7.5-7.5s3.36-7.5 7.5-7.5 7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5zM0 250c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5S0 254.14 0 250zm125 0c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5zm125 0c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5zm125 0c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5zm125 0c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5zm125 0c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5zm125 0c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5zM72.5 387.5c-4.14 0-7.5-3.36-7.5-7.5s3.36-7.5 7.5-7.5 7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5zm125 0c-4.14 0-7.5-3.36-7.5-7.5s3.36-7.5 7.5-7.5 7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5zm125 0c-4.14 0-7.5-3.36-7.5-7.5s3.36-7.5 7.5-7.5 7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5zm125 0c-4.14 0-7.5-3.36-7.5-7.5s3.36-7.5 7.5-7.5 7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5zm125 0c-4.14 0-7.5-3.36-7.5-7.5s3.36-7.5 7.5-7.5 7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5zm125 0c-4.14 0-7.5-3.36-7.5-7.5s3.36-7.5 7.5-7.5 7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5zM0 500c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5S0 504.14 0 500zm125 0c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5zm125 0c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5zm125 0c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5zm125 0c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5zm125 0c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5zm125 0c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5zM72.5 637.5c-4.14 0-7.5-3.36-7.5-7.5s3.36-7.5 7.5-7.5 7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5zm125 0c-4.14 0-7.5-3.36-7.5-7.5s3.36-7.5 7.5-7.5 7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5zm125 0c-4.14 0-7.5-3.36-7.5-7.5s3.36-7.5 7.5-7.5 7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5zm125 0c-4.14 0-7.5-3.36-7.5-7.5s3.36-7.5 7.5-7.5 7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5zm125 0c-4.14 0-7.5-3.36-7.5-7.5s3.36-7.5 7.5-7.5 7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5zm125 0c-4.14 0-7.5-3.36-7.5-7.5s3.36-7.5 7.5-7.5 7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5zM0 750c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5S0 754.14 0 750zm125 0c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5zm125 0c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5zm125 0c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5zm125 0c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5zm125 0c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5zm125 0c0-4.14 3.36-7.5 7.5-7.5s7.5 3.36 7.5 7.5-3.36 7.5-7.5 7.5-7.5-3.36-7.5-7.5z' /%3E%3C/g%3E%3C/svg%3E");
+  background-attachment: local;
+}
+
+/* Mobile Responsiveness for Chat */
+@media (max-width: 640px) {
+  .chat-container-main {
+    bottom: 1rem;
+    right: 1rem;
+    left: auto;
+    align-items: flex-end;
+  }
+
+  .enterprise-chat-window {
+    width: 100%;
+    height: 70vh;
+    max-height: 550px;
+    margin-bottom: 1rem;
+    border-radius: 24px;
+  }
+
+  .enterprise-chat-window > div {
+    padding: 1rem !important; /* Force smaller padding on mobile */
+  }
+
+  .chat-toggle-premium {
+    width: 100% !important;
+    max-width: 200px;
+    height: 56px !important;
+    padding: 0 1.2rem !important;
+  }
+
+  .chat-toggle-premium span {
+    font-size: 0.8rem !important;
+  }
 }
 
 .chat-toggle-premium {
@@ -1255,8 +1311,42 @@ h1, h2, h3 {
   100% { transform: scale(1); opacity: 1; }
 }
 
-.ai-icon-pulse {
-  animation: pulseChat 2s infinite;
+.wa-style-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wa-pulse-glow {
+  position: absolute;
+  inset: -8px;
+  background: var(--primary);
+  border-radius: 50%;
+  opacity: 0.2;
+  animation: waPulse 2s infinite;
+  z-index: -1;
+}
+
+@keyframes waPulse {
+  0% { transform: scale(0.8); opacity: 0.3; }
+  50% { transform: scale(1.2); opacity: 0; }
+  100% { transform: scale(0.8); opacity: 0.3; }
+}
+
+.chat-toggle-premium {
+  background: linear-gradient(135deg, #25d366, #128c7e) !important; /* WA Green Gradient */
+  border-radius: 50% !important;
+  width: 64px !important;
+  height: 64px !important;
+}
+
+/* Override mobile for WA style */
+@media (max-width: 640px) {
+  .chat-toggle-premium {
+    width: 60px !important;
+    height: 60px !important;
+  }
 }
 
 /* BIL Brand Identity Styles */

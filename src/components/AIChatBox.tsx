@@ -133,6 +133,29 @@ export default function AIChatBox({ lang }: { lang: 'EN' | 'ID' }) {
     }
   }, [lang]);
 
+  const EncryptionBanner = () => (
+    <div style={{
+      background: '#FFF9C4',
+      padding: '0.8rem 1rem',
+      borderRadius: '10px',
+      fontSize: '0.75rem',
+      color: '#54656F',
+      textAlign: 'center',
+      marginBottom: '1.2rem',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '4px',
+      boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}>
+        <span>🔒</span>
+        <span>Messages and calls are end-to-end encrypted.</span>
+      </div>
+      <span style={{ fontSize: '0.7rem', opacity: 0.8 }}>Only people in this chat can read, listen to, or share them. Click to learn more.</span>
+    </div>
+  );
+
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -145,21 +168,23 @@ export default function AIChatBox({ lang }: { lang: 'EN' | 'ID' }) {
   };
 
   return (
-    <div style={{ position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 1000, fontFamily: "'Inter', sans-serif" }}>
+    <div className="chat-container-main">
       {/* Premium Chat Window */}
       {isOpen && (
-        <div className="enterprise-chat-window" style={chatWindowStyle}>
+        <div className="enterprise-chat-window">
           {/* Header */}
           <div style={chatHeaderStyle}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <div style={avatarContainerStyle}>
-                <span style={{ fontSize: '1.2rem' }}>🤖</span>
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#DFE5E7', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                  <span style={{ fontSize: '1.4rem' }}>🤖</span>
+                </div>
                 <div className={`status-indicator ${isListening ? 'listening' : 'online'}`} />
               </div>
               <div>
-                <div style={{ fontWeight: '700', fontSize: '0.9rem', color: '#fff', marginBottom: '2px' }}>Boni Assistant</div>
-                <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.5)', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
-                  {isTyping ? 'Thinking...' : 'Ready to help'}
+                <div style={{ fontWeight: '600', fontSize: '1rem', color: '#111B21', marginBottom: '1px' }}>Boni Assistant</div>
+                <div style={{ fontSize: '0.75rem', color: isTyping ? '#00A884' : '#667781', fontWeight: isTyping ? '600' : 'normal' }}>
+                  {isTyping ? 'typing...' : (isListening ? 'listening...' : 'online')}
                 </div>
               </div>
             </div>
@@ -175,7 +200,13 @@ export default function AIChatBox({ lang }: { lang: 'EN' | 'ID' }) {
           </div>
 
           {/* Messages Container */}
-          <div ref={scrollRef} style={messageContainerStyle}>
+          <div ref={scrollRef} className="wa-light-bg" style={messageContainerStyle}>
+            <EncryptionBanner />
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.2rem' }}>
+              <div style={{ background: '#FFFFFF', padding: '0.4rem 0.8rem', borderRadius: '8px', fontSize: '0.75rem', color: '#54656F', boxShadow: '0 1px 1px rgba(0,0,0,0.1)', textTransform: 'uppercase', fontWeight: '500' }}>
+                Today
+              </div>
+            </div>
             {messages.map((msg, i) => (
               <div key={i} style={{ 
                 alignSelf: msg.role === 'user' ? 'flex-end' : 'flex-start',
@@ -184,18 +215,20 @@ export default function AIChatBox({ lang }: { lang: 'EN' | 'ID' }) {
                 animation: 'fadeInUp 0.3s ease-out'
               }}>
                 <div style={{
-                  padding: '0.9rem 1.1rem',
-                  borderRadius: msg.role === 'user' ? '20px 20px 4px 20px' : '20px 20px 20px 4px',
-                  background: msg.role === 'user' 
-                    ? 'linear-gradient(135deg, #6366f1, #a855f7)' 
-                    : 'rgba(255, 255, 255, 0.07)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  boxShadow: msg.role === 'user' ? '0 4px 15px rgba(99, 102, 241, 0.3)' : 'none',
-                  fontSize: '0.88rem',
-                  lineHeight: '1.6',
-                  color: '#fff'
+                  padding: '0.6rem 0.8rem',
+                  borderRadius: msg.role === 'user' ? '12px 0 12px 12px' : '0 12px 12px 12px',
+                  background: msg.role === 'user' ? '#DCF8C6' : '#FFFFFF',
+                  boxShadow: '0 1px 1px rgba(0,0,0,0.1)',
+                  fontSize: '0.92rem',
+                  lineHeight: '1.45',
+                  color: '#111B21',
+                  position: 'relative'
                 }}>
                   {msg.content}
+                  <div style={{ fontSize: '0.65rem', color: '#667781', textAlign: 'right', marginTop: '4px' }}>
+                    {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    {msg.role === 'user' && <span style={{ marginLeft: '4px', color: '#53BDEB' }}>✓✓</span>}
+                  </div>
                 </div>
               </div>
             ))}
@@ -206,33 +239,36 @@ export default function AIChatBox({ lang }: { lang: 'EN' | 'ID' }) {
             )}
           </div>
 
-          {/* Input Area */}
           <div style={inputAreaStyle}>
             <div style={inputWrapperStyle}>
+              <div style={{ display: 'flex', gap: '12px', color: '#54656F', marginRight: '12px' }}>
+                <span style={{ fontSize: '1.2rem', cursor: 'pointer' }}>➕</span>
+                <span style={{ fontSize: '1.2rem', cursor: 'pointer' }}>😊</span>
+              </div>
               <input 
                 type="text" 
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                placeholder={lang === 'EN' ? "Ask about Boni..." : "Tanya soal Boni..."}
-                style={inputFieldStyle}
+                placeholder="Type a message"
+                style={{ ...inputFieldStyle, color: '#111B21' }}
               />
-              <button 
-                onClick={startListening} 
-                style={{
-                  ...sendBtnStyle, 
-                  background: isListening ? '#ef4444' : 'rgba(255, 255, 255, 0.05)', 
-                  marginRight: '8px'
-                }}
-              >
-                {isListening ? '🛑' : '🎙️'}
-              </button>
-              <button onClick={handleSend} style={sendBtnStyle}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="22" y1="2" x2="11" y2="13"></line>
-                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                </svg>
-              </button>
+              <div style={{ marginLeft: '12px', display: 'flex', alignItems: 'center' }}>
+                {input.trim() ? (
+                  <button onClick={handleSend} style={{ ...sendBtnStyle, color: '#00A884' }}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path>
+                    </svg>
+                  </button>
+                ) : (
+                  <button onClick={startListening} style={{ ...sendBtnStyle, color: isListening ? '#EF4444' : '#54656F' }}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"></path>
+                      <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"></path>
+                    </svg>
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -251,13 +287,13 @@ export default function AIChatBox({ lang }: { lang: 'EN' | 'ID' }) {
       >
         <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           {isOpen ? (
-            <span style={{ fontSize: '1.4rem' }}>✕</span>
+            <span style={{ fontSize: '1.5rem' }}>✕</span>
           ) : (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <div className="ai-icon-pulse">
-                <span style={{ fontSize: '1.6rem' }}>⚡</span>
-              </div>
-              <span style={{ fontWeight: '700', fontSize: '0.9rem', letterSpacing: '0.5px' }}>ASK AI</span>
+            <div className="wa-style-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" viewBox="0 0 16 16">
+                <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+              </svg>
+              <div className="wa-pulse-glow"></div>
             </div>
           )}
         </div>
@@ -267,19 +303,11 @@ export default function AIChatBox({ lang }: { lang: 'EN' | 'ID' }) {
   );
 }
 
-const chatWindowStyle: React.CSSProperties = {
-  width: '380px',
-  height: '520px',
-  marginBottom: '1.5rem',
-  display: 'flex',
-  flexDirection: 'column',
-  overflow: 'hidden',
-};
 
 const chatHeaderStyle: React.CSSProperties = {
-  padding: '1.5rem',
-  background: 'rgba(255, 255, 255, 0.02)',
-  borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+  padding: '0.75rem 1rem',
+  background: '#FFFFFF',
+  borderBottom: '1px solid #E9EDEF',
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -287,10 +315,9 @@ const chatHeaderStyle: React.CSSProperties = {
 
 const avatarContainerStyle: React.CSSProperties = {
   position: 'relative',
-  width: '42px',
-  height: '42px',
-  background: 'rgba(255, 255, 255, 0.05)',
-  borderRadius: '14px',
+  width: '40px',
+  height: '40px',
+  borderRadius: '50%',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -316,17 +343,17 @@ const messageContainerStyle: React.CSSProperties = {
 };
 
 const inputAreaStyle: React.CSSProperties = {
-  padding: '1.5rem',
-  background: 'rgba(255, 255, 255, 0.02)',
+  padding: '0.75rem 1rem',
+  background: '#F0F2F5',
 };
 
 const inputWrapperStyle: React.CSSProperties = {
   display: 'flex',
   alignItems: 'center',
-  background: 'rgba(255, 255, 255, 0.05)',
-  borderRadius: '16px',
+  background: '#FFFFFF',
+  borderRadius: '24px',
   padding: '4px 6px 4px 16px',
-  border: '1px solid rgba(255, 255, 255, 0.1)',
+  border: 'none',
   transition: 'border 0.3s',
 };
 
@@ -341,27 +368,27 @@ const inputFieldStyle: React.CSSProperties = {
 };
 
 const sendBtnStyle: React.CSSProperties = {
-  background: '#6366f1',
-  color: '#fff',
+  background: 'transparent',
+  color: '#8696A0',
   border: 'none',
-  borderRadius: '12px',
+  borderRadius: '50%',
   width: '40px',
   height: '40px',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   cursor: 'pointer',
-  transition: 'transform 0.2s',
+  transition: 'color 0.2s',
 };
 
 const toggleBtnStyle: React.CSSProperties = {
-  width: 'auto',
+  width: '64px',
   height: '64px',
-  padding: '0 1.8rem',
-  borderRadius: '32px',
+  borderRadius: '50%',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  padding: 0,
 };
 
 const typingIndicatorStyle: React.CSSProperties = {
