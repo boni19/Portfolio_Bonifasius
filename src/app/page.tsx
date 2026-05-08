@@ -10,6 +10,7 @@ import ProjectModal from "@/components/ProjectModal";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import ParticleNetwork from "@/components/ParticleNetwork";
+import { motion } from 'framer-motion';
 
 const translations = {
   EN: {
@@ -142,6 +143,41 @@ const translations = {
   }
 };
 
+function TerminalDisplay({ lines, label }: { lines: string[], label: string }) {
+  const [terminalText, setTerminalText] = React.useState("");
+  const [lineIdx, setLineIdx] = React.useState(0);
+
+  React.useEffect(() => {
+    let charIdx = 0;
+    const interval = setInterval(() => {
+      const currentLine = lines[lineIdx];
+      if (charIdx < currentLine.length) {
+        setTerminalText(currentLine.substring(0, charIdx + 1));
+        charIdx++;
+      } else {
+        clearInterval(interval);
+        setTimeout(() => {
+          setLineIdx((prev) => (prev + 1) % lines.length);
+        }, 2000);
+      }
+    }, 50);
+    return () => clearInterval(interval);
+  }, [lineIdx, lines]);
+
+  return (
+    <div style={{ height: '25%', padding: '1rem 1.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'rgba(2, 6, 23, 0.8)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+        <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 10px #22c55e' }} />
+        <span style={{ fontSize: '0.65rem', fontWeight: '800', letterSpacing: '2px', color: 'var(--primary)', opacity: 0.8 }}>{label}</span>
+      </div>
+      <div style={{ fontFamily: 'monospace', color: 'var(--primary)', fontSize: '0.85rem', fontWeight: '500' }}>
+        {terminalText}
+        <span className="terminal-cursor">|</span>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [lang, setLang] = useState<'EN' | 'ID'>('EN');
   const [showLangDrop, setShowLangDrop] = useState(false);
@@ -157,8 +193,7 @@ export default function Home() {
   };
 
   const t = translations[lang];
-  const [terminalText, setTerminalText] = useState("");
-  const [lineIdx, setLineIdx] = useState(0);
+
   const [activeCodeTab, setActiveCodeTab] = useState<'Python' | 'Go' | 'TS' | 'Next' | 'Docker' | 'FastAPI' | 'LangChain'>('Python');
   const [isRunning, setIsRunning] = useState(false);
   const [showOutput, setShowOutput] = useState(false);
@@ -579,22 +614,7 @@ print(f"Answer: {response['result']}")`,
     }
   };
 
-  useEffect(() => {
-    let charIdx = 0;
-    const interval = setInterval(() => {
-      const currentLine = t.terminalLines[lineIdx];
-      if (charIdx < currentLine.length) {
-        setTerminalText(currentLine.substring(0, charIdx + 1));
-        charIdx++;
-      } else {
-        clearInterval(interval);
-        setTimeout(() => {
-          setLineIdx((prev) => (prev + 1) % t.terminalLines.length);
-        }, 2000);
-      }
-    }, 50);
-    return () => clearInterval(interval);
-  }, [lineIdx, t.terminalLines]);
+
 
   return (
     <main>
@@ -610,38 +630,81 @@ print(f"Answer: {response['result']}")`,
 
       {/* Hero Section - The Elite Entrance */}
       <section className="hero-section" style={heroSectionStyle}>
-        <div className="fade-up hero-grid" style={heroContainerStyle}>
-          <div style={heroContentStyle}>
+        <motion.div 
+          className="hero-grid" 
+          style={heroContainerStyle}
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.3,
+              },
+            },
+          }}
+        >
+          <motion.div 
+            style={heroContentStyle}
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0 }
+            }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          >
             {/* Metadata Accents */}
-            <div style={{ display: 'flex', gap: '2rem', marginBottom: '1.2rem', opacity: 0.3, fontSize: '0.6rem', fontWeight: '900', letterSpacing: '2px' }}>
+            <motion.div 
+              style={{ display: 'flex', gap: '2rem', marginBottom: '1.2rem', opacity: 0.3, fontSize: '0.6rem', fontWeight: '900', letterSpacing: '2px' }}
+              variants={{
+                hidden: { opacity: 0, y: 10 },
+                visible: { opacity: 0.3, y: 0 }
+              }}
+              transition={{ duration: 0.5 }}
+            >
               <span>LOC: MEDAN_IDN</span>
               <span>SYS: NEURAL_CORE_v1.5</span>
               <span>STATUS: ONLINE_SYNC</span>
-            </div>
+            </motion.div>
 
 
 
-            <h1 style={heroTitleStyle}>
+            <motion.h1 
+              style={heroTitleStyle}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 }
+              }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            >
               {lang === 'EN' ? (
                 <>Empowering Business <br /> Growth with <br /> <span className="text-gradient">Intelligent Systems.</span></>
               ) : (
                 <>Solusi Digital <br /> Cerdas untuk <br /> <span className="text-gradient">Akselerasi Bisnis.</span></>
               )}
-            </h1>
-            <p style={heroSubtitleStyle}>{t.heroSubtitle}</p>
+            </motion.h1>
+            <motion.p 
+              style={heroSubtitleStyle}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 }
+              }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {t.heroSubtitle}
+            </motion.p>
 
-            <div style={{ display: 'flex', gap: '1.5rem', marginTop: '1rem' }}>
-              <button className="glow-btn" onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}>
-                {t.exploreBtn}
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" style={{ marginLeft: '10px' }}><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </button>
-              <button style={outlineBtnStyle} onClick={() => window.open('/resume.pdf', '_blank')}>
-                {t.resumeBtn}
-              </button>
-            </div>
-          </div>
 
-          <div style={heroGraphicStyle}>
+          </motion.div>
+
+          <motion.div 
+            style={heroGraphicStyle}
+            variants={{
+              hidden: { opacity: 0, x: 30 },
+              visible: { opacity: 1, x: 0 }
+            }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className="photo-frame" style={{ width: '100%', height: '100%', borderRadius: '40px', padding: '2px' }}>
               <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 50% 50%, var(--primary-glow), transparent)' }} />
               <div className="glass-card" style={{ height: '100%', width: '100%', background: 'rgba(15, 23, 42, 0.4)', borderRadius: '38px', position: 'relative', overflow: 'hidden', padding: 0 }}>
@@ -660,21 +723,12 @@ print(f"Answer: {response['result']}")`,
                 </div>
 
                 {/* Terminal Section */}
-                <div style={{ height: '25%', padding: '1rem 1.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', background: 'rgba(2, 6, 23, 0.8)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 10px #22c55e' }} />
-                    <span style={{ fontSize: '0.65rem', fontWeight: '800', letterSpacing: '2px', color: 'var(--primary)', opacity: 0.8 }}>{t.heroLabel}</span>
-                  </div>
-                  <div style={{ fontFamily: 'monospace', color: 'var(--primary)', fontSize: '0.85rem', fontWeight: '500' }}>
-                    {terminalText}
-                    <span className="terminal-cursor">|</span>
-                  </div>
-                </div>
+                <TerminalDisplay lines={t.terminalLines} label={t.heroLabel} />
 
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Tech Stack Marquee - The Trust Bar */}
