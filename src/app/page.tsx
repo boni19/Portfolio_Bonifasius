@@ -612,16 +612,33 @@ print(f"Answer: {response['result']}")`,
       <section className="hero-section" style={heroSectionStyle}>
         <div className="fade-up hero-grid" style={heroContainerStyle}>
           <div style={heroContentStyle}>
+            {/* Metadata Accents */}
+            <div style={{ display: 'flex', gap: '2rem', marginBottom: '1.2rem', opacity: 0.3, fontSize: '0.6rem', fontWeight: '900', letterSpacing: '2px' }}>
+              <span>LOC: MEDAN_IDN</span>
+              <span>SYS: NEURAL_CORE_v1.5</span>
+              <span>STATUS: ONLINE_SYNC</span>
+            </div>
+
+
 
             <h1 style={heroTitleStyle}>
               {lang === 'EN' ? (
-                <>Empowering Business Growth <br /> with <span className="text-gradient">Intelligent Systems.</span></>
+                <>Empowering Business <br /> Growth with <br /> <span className="text-gradient">Intelligent Systems.</span></>
               ) : (
-                <>Solusi Digital Cerdas untuk <br /> <span className="text-gradient">Akselerasi Bisnis.</span></>
+                <>Solusi Digital <br /> Cerdas untuk <br /> <span className="text-gradient">Akselerasi Bisnis.</span></>
               )}
             </h1>
             <p style={heroSubtitleStyle}>{t.heroSubtitle}</p>
 
+            <div style={{ display: 'flex', gap: '1.5rem', marginTop: '1rem' }}>
+              <button className="glow-btn" onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}>
+                {t.exploreBtn}
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" style={{ marginLeft: '10px' }}><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+              <button style={outlineBtnStyle} onClick={() => window.open('/resume.pdf', '_blank')}>
+                {t.resumeBtn}
+              </button>
+            </div>
           </div>
 
           <div style={heroGraphicStyle}>
@@ -1392,19 +1409,20 @@ const heroContentStyle: React.CSSProperties = {
 };
 
 const heroTitleStyle: React.CSSProperties = {
-  fontSize: '5.5rem',
-  lineHeight: '1.0',
+  fontSize: 'clamp(2.2rem, 6vw, 4rem)',
+  lineHeight: '1.2',
   fontWeight: '900',
-  marginBottom: '2.5rem',
-  letterSpacing: '-0.04em',
+  marginBottom: '2rem',
+  letterSpacing: '-0.03em',
+  color: 'white',
 };
 
 const heroSubtitleStyle: React.CSSProperties = {
-  fontSize: '1.2rem',
-  color: 'var(--text-muted)',
+  fontSize: '1.1rem',
+  color: 'rgba(255, 255, 255, 0.5)',
   lineHeight: '1.8',
   marginBottom: '4rem',
-  maxWidth: '600px',
+  maxWidth: '550px',
   fontWeight: '400',
 };
 

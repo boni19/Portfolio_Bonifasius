@@ -267,13 +267,19 @@ export default function AIChatBox({ lang }: { lang: 'EN' | 'ID' }) {
                 style={{ ...inputFieldStyle, color: '#111B21' }}
               />
               <div style={{ marginLeft: '12px', display: 'flex', alignItems: 'center' }}>
-                {input.trim() && (
-                  <button onClick={handleSend} style={{ ...sendBtnStyle, color: '#00A884' }}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path>
-                    </svg>
-                  </button>
-                )}
+                <button 
+                  onClick={handleSend} 
+                  style={{ 
+                    ...sendBtnStyle, 
+                    color: input.trim() ? '#00A884' : '#54656F',
+                    cursor: input.trim() ? 'pointer' : 'default',
+                    opacity: input.trim() ? 1 : 0.8
+                  }}
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path>
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
